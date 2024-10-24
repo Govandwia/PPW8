@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+
 class LoginRegisterController extends Controller
 {
     /**
@@ -14,7 +15,8 @@ class LoginRegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except(['logout', 'dashboard']);
+        $this->middleware('guest')->except(['logout', 'dashboard', 'test' ]);
+        $this->middleware('admin')->only('test');
     }
 
     /**
@@ -119,4 +121,11 @@ class LoginRegisterController extends Controller
 
         return redirect()->route('login')->withSuccess('You have logged out successfully!');
     }
+    public function test()
+    {
+        // Your logic for the admin dashboard goes here
+        // dd('masuk');
+        return view('dashboard_admin'); // Adjust the view name as needed
+    }
+
 }
