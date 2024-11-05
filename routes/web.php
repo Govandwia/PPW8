@@ -4,6 +4,7 @@ use App\Http\Middleware\admin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::controller(LoginRegisterController::class)->group(function(){
     Route::post('/logout', 'logout')->name('logout');
     Route::get('/dashboard_admin', 'test')->name('dashboard_admin'); // Corrected here
 });
+
+Route::resource('users', UserController::class);
 
 // Route::get(Dashboard)
 // Route::get('restricted', function () {
