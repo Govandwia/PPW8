@@ -23,11 +23,15 @@
                             <th scope="row">{{ $user->id }}</th>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td><img src="{{ asset('storage/' . $user->photo) }}" alt="{{ $user->name }}" width="100"></td>
+                            <td><img src="{{ asset('storage/photos/' . $user->photo) }}" alt="{{ $user->name }}" width="100"></td>
                             <td>
-                                <a href="" class="btn btn-primary">Edit</a>
-                                <a href="" class="btn btn-danger">Delete</a>
-                            </td>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                         </tr>
                         @endforeach
                     </tbody>

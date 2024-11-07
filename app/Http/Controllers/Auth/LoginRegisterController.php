@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 
 
@@ -21,22 +20,12 @@ class LoginRegisterController extends Controller
         $this->middleware('admin')->only('test');
     }
 
-    /**
-     * Display a registration form.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function register()
     {
         return view('auth.register');
     }
 
-    /**
-     * Store a new user.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         $request->validate([
