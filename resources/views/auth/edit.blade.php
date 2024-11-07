@@ -28,7 +28,7 @@
             <label for="photo">Photo</label>
             <input type="file" name="photo" class="form-control">
             @if ($user->photo)
-                <img src="{{ asset('storage/photos/' . $user->photo) }}" alt="{{ $user->name }}" width="100">
+                <img src="{{ asset("storage/{$user->photo}") }}" alt="{{ $user->name }}" width="100">
             @endif
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
