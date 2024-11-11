@@ -33,6 +33,7 @@ class LoginRegisterController extends Controller
             'email' => 'required|email|max:250|unique:users',
             'password' => 'required|min:8|confirmed',
             'photo' => 'image|nullable|max:1999',
+            'role' => 'required|string|max:250'
         ]);
 
         if ($request->hasFile('photo')) {
@@ -49,7 +50,8 @@ class LoginRegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'photo' => $path,
+            'photo' => $fileNameToStore,
+            'role' => $request->role
         ]);
 
         $credentials = $request->only('email', 'password');

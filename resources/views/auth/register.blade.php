@@ -49,6 +49,20 @@
                                 <span class="text-danger">{{ $errors->first('photo') }}</span>
                             @endif
                         </div>
+                    </div>
+                    <div class="mb-3 row"></div>
+                        <label for="role" class="col-md-4 col-form-label text-md-end text-start">Role</label>
+                        <div class="col-md-6 ">
+                            <select class="form-control @error('role') is-invalid @enderror" id="role" name="role">
+                                <option value="">Select Role</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                            </select>
+                            @if ($errors->has('role'))
+                                <span class="text-danger">{{ $errors->first('role') }}</span>
+                            @endif
+                        </div>
+                    </div>
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Register">
                     </div>

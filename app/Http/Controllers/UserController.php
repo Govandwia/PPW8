@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -41,31 +42,26 @@ class UserController extends Controller
 
         if ($request->hasFile('photo')) {
             // Delete the old photo if it exists
-            if ($user->photo && $user->photo != 'noimage.jpg') {
-                Storage::delete('public/photos/' . $user->photo);
+            $oldPhoto = public_path('storage/' . $user->photo);
+    
+            if (File::exists($oldPhoto)) {
+                File::delete($oldPhoto);
             }
-
+    
             // Handle the file upload
-            $fileNameWithExt = $request->file('photo')->getClientOriginalName();
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('photo')->getClientOriginalExtension();
-            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
-            $path = $request->file('photo')->storeAs('public/photos', $fileNameToStore);
-
-            // Update the user's photo attribute
-            $user->photo = $fileNameToStore;
+            $path = $request->file('photo')->store('photos', 'public');
+            $user->photo = $path;
         }
-
+    
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
         $user->save();
-
+    
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
-
     public function destroy($id)
     {
         $user = User::findOrFail($id);
