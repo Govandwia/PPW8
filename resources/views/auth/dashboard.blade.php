@@ -24,4 +24,9 @@
     </div>
 </div>
 </div>
+<div class="row justify-content-center mt-3">
+    <div class="col-md-8 text-center">
+        <a href="{{ route('gallery.index') }}" class="btn btn-secondary">Go to Gallery</a>
+    </div>
+</div>
 @endsection

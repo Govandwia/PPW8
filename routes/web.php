@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::controller(LoginRegisterController::class)->group(function(){
 });
 
 Route::resource('users', UserController::class);
+
+Route::resource('gallery', GalleryController::class);
 
 // Route::get(Dashboard)
 // Route::get('restricted', function () {
