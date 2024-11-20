@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\UserRegistered;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -46,13 +48,16 @@ class LoginRegisterController extends Controller
             $fileNameToStore = 'noimage.jpg';
         }
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'photo' => $fileNameToStore,
             'role' => $request->role
         ]);
+
+        // Send email notification
+        Mail::to($user->email)->send(new UserRegistered($user));
 
         $credentials = $request->only('email', 'password');
         Auth::attempt($credentials);
